@@ -56,6 +56,7 @@
 		E204EBDD225155F4009FD229 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		E204EBEA22515AE7009FD229 /* loginController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = loginController.swift; sourceTree = "<group>"; };
 		E204EBEC22523E63009FD229 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		E208B225225E1E5300C14295 /* chat.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = chat.entitlements; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -117,6 +118,7 @@
 		E204EBBA225155F2009FD229 /* chat */ = {
 			isa = PBXGroup;
 			children = (
+				E208B225225E1E5300C14295 /* chat.entitlements */,
 				E204EBE922515A9C009FD229 /* controller */,
 				E204EBBB225155F2009FD229 /* AppDelegate.swift */,
 				E204EBBF225155F2009FD229 /* Main.storyboard */,
@@ -236,6 +238,11 @@
 						CreatedOnToolsVersion = 10.1;
 						DevelopmentTeam = 6G7H6CC378;
 						ProvisioningStyle = Automatic;
+						SystemCapabilities = {
+							com.apple.Keychain = {
+								enabled = 1;
+							};
+						};
 					};
 					E204EBCB225155F4009FD229 = {
 						CreatedOnToolsVersion = 10.1;
@@ -531,6 +538,7 @@
 			baseConfigurationReference = 7E47DA4E8FB28D9AA5BB3D69 /* Pods-chat.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = chat/chat.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 6G7H6CC378;
 				INFOPLIST_FILE = chat/Info.plist;
@@ -547,6 +555,7 @@
 			baseConfigurationReference = 179EC639B13E5B7DA9F20BC6 /* Pods-chat.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = chat/chat.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 6G7H6CC378;
 				INFOPLIST_FILE = chat/Info.plist;
