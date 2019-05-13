@@ -56,31 +56,70 @@ class loginController: UIViewController {
                 print (error as Any)
                 return
             }
+            
             //successfully logged in our user
             self.dismiss(animated: true, completion: nil)
+            
         }
     }
+    
+    
     @objc func handleRegister(){
         guard let email=emailTextField.text,let password=passwordTextField.text, let name=nameTextField.text
             else{
-            print("Form is not valid")
+           
             return
         }
-      Auth.auth().createUser(withEmail: email, password: password) {authResult,error
-        
-
-          
-            in
-    if error != nil{
-        print(error as Any)
+        Auth.auth().createUser(withEmail: email, password: password) {authResult,error
+        //Auth.auth().createUser(withEmail: email, password: password ,completion: {user,error
+    in
+            if error != nil{
                 return
-    }
-        
+            }
+            guard let authResult=authResult else{return}
+            let User=authResult.user
+          
+//    if error != nil{
+//        print(error as Any)
+//                return
+//    }
+//
+//            guard let user uid = user.user.uid
+//
+//        else{
+//            return
+//        }
         
             //Successful authentication of user
+//             let imageName = NSUUID().uuidString
+//            let storageRef=Storage.storage().reference().child("myImage.png").child("\(imageName).png")
+//
+//            if let uploadData = self.profileImageView.image?.pngData(){
+//
+//                storageRef.putData(uploadData, metadata: nil, completion: { (metadata, error) in
+//                    if error != nil{
+//                        print(error as Any)
+//                        return
+//                    }
+//                    storageRef.downloadURL(completion: { (url, err) in
+//                        if let err = err {
+//                            print(err)
+//                            return
+//                        }
+//                        guard let url = url else { return }
+//                        let values = ["name": name, "email": email, "profileImageUrl": url.absoluteString]
+//
+//                        self.registerUserIntoDatabaseWithUID(uid, values: values as [String : AnyObject])
+//
+//                })
+//                })
+//            }
+        
+            
+            
     let ref = Database.database().reference(fromURL: "https://chat-df16b.firebaseio.com/")
     
-        let usersReference=ref.child("users")
+            let usersReference=ref.child("users").child(User.uid)
             
   
     let values=["name":name,"email":email]
@@ -95,7 +134,7 @@ class loginController: UIViewController {
         
     }
         }
-    }
+            }
     //name text feild
     let nameTextField:UITextField={
         let tf=UITextField()
@@ -134,14 +173,22 @@ class loginController: UIViewController {
         return tf
     }()
     //setprofile pic
-    let profileImageView:UIImageView={
+    lazy var profileImageView:UIImageView={
         let imageview = UIImageView()
         imageview.image=UIImage(named: "Get")
         imageview.translatesAutoresizingMaskIntoConstraints=false
         imageview.contentMode = .scaleAspectFill
+        
+
+        
         return imageview
         
     }()
+   
+    
+ 
+
+    
    lazy var loginRegisterSegmentedControl: UISegmentedControl={
         let sc=UISegmentedControl(items:["Login","Register"])
         sc.translatesAutoresizingMaskIntoConstraints=false
@@ -170,10 +217,6 @@ class loginController: UIViewController {
         passwordtextfieldheightanchor?.isActive=false
         passwordtextfieldheightanchor=passwordTextField.heightAnchor.constraint(equalTo: inputsContainerView.heightAnchor, multiplier: loginRegisterSegmentedControl.selectedSegmentIndex == 0 ? 1/2 : 1/3)
         passwordtextfieldheightanchor?.isActive=true
-        
-        
-        
-        
     }
 
     override func viewDidLoad() {
@@ -287,14 +330,13 @@ class loginController: UIViewController {
         return.lightContent
     }
 
- 
-    }
- extension UIColor{
+        
     
-    //setting the colour inorder to just call the method
-    convenience init(r:CGFloat,g:CGFloat,b:CGFloat){
-    self.init(red: r/255,green:g/255,blue:b/255,alpha:1)
-    }
+        }
+        extension UIColor {
+            
+            convenience init(r: CGFloat, g: CGFloat, b: CGFloat) {
+                self.init(red: r/255, green: g/255, blue: b/255, alpha: 1)
+            }
+            
  }
-
-

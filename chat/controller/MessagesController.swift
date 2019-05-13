@@ -17,7 +17,16 @@ class MessagesController: UITableViewController {
         
         //Setting the login button at the topleft hand corner
         navigationItem.leftBarButtonItem=UIBarButtonItem(title:"Logout", style:.plain, target:self,action:#selector(handlelogout))
+        
+        let image=UIImage(named: "meso")
+        navigationItem.rightBarButtonItem=UIBarButtonItem(image: image,style:.plain, target: self, action:#selector(handleNewMessage))
+        
        checkIfUserisloggedin()
+    }
+    @objc func handleNewMessage(){
+        let newMessageController=NewMessageController()
+        let navController=UINavigationController(rootViewController: newMessageController)
+        present(navController, animated: true, completion: nil)
     }
     
     func checkIfUserisloggedin(){
@@ -29,10 +38,11 @@ class MessagesController: UITableViewController {
             let  uid = Auth.auth().currentUser?.uid
             
             Database.database().reference().child("users").child(uid!).observe(.value, with: { (snapshot) in
-                if let Dictionary = snapshot.value as? [String:AnyObject]{
-                    self.navigationItem.title = Dictionary ["name"] as? String
-                }
                 
+                if let dictionary = snapshot.value as? [String:AnyObject]{
+                    
+                    self.navigationItem.title = dictionary["name"] as? String
+                }
             }, withCancel: nil)
         }
         
